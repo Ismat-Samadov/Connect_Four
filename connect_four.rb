@@ -8,13 +8,14 @@ class ConnectFour
   end
 
   def drop_piece(column, piece)
-  puts "Column parameter type: #{column.class}"
+  column = column.to_i  # Ensure column is treated as an integer
   row = find_empty_row(column)
   return false unless row
 
   @board[row][column] = piece
   true
   end
+
 
 
   def check_win(piece)
@@ -53,8 +54,23 @@ class ConnectFour
     false
   end
 
-  def diagonal_win?(piece)
-    # Implement diagonal win check here
-    false
+ def diagonal_win?(piece)
+  # Check for diagonal wins from bottom-left to top-right
+  (0..2).each do |row|
+    (0..3).each do |column|
+      return true if @board[row][column] == piece && @board[row + 1][column + 1] == piece &&
+                      @board[row + 2][column + 2] == piece && @board[row + 3][column + 3] == piece
+    end
   end
+
+  # Check for diagonal wins from top-left to bottom-right
+  (0..2).each do |row|
+    (3..6).each do |column|
+      return true if @board[row][column] == piece && @board[row + 1][column - 1] == piece &&
+                      @board[row + 2][column - 2] == piece && @board[row + 3][column - 3] == piece
+    end
+  end
+
+  false
+ end
 end
