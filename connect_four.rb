@@ -8,12 +8,14 @@ class ConnectFour
   end
 
   def drop_piece(column, piece)
-    row = find_empty_row(column)
-    return false unless row
+  puts "Column parameter type: #{column.class}"
+  row = find_empty_row(column)
+  return false unless row
 
-    @board[row][column] = piece
-    true
+  @board[row][column] = piece
+  true
   end
+
 
   def check_win(piece)
     return true if horizontal_win?(piece)
